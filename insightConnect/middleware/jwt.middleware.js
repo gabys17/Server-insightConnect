@@ -1,27 +1,33 @@
-const { expressjwt: jwt } = require("express-jwt");
+const jwt = require("jsonwebtoken");
 
 // Instantiate the JWT token validation middleware
-const isAuthenticated = jwt({
-  secret: process.env.TOKEN_SECRET,
-  algorithms: ["HS256"],
-  requestProperty: "payload",
-  getToken: getTokenFromHeaders,
-});
-
-// Function used to extract the JWT token from the request's 'Authorization' Headers
-function getTokenFromHeaders(req) {
-  // Check if the token is available on the request Headers
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.split(" ")[0] === "Bearer"
-  ) {
-    // Get the encoded token string and return it
+const isAuthenticated = (req, res, next) => {
+  try {
+    // Get the token string from the authorization header - "Bearer eyJh5kp9..."
     const token = req.headers.authorization.split(" ")[1];
-    return token;
-  }
 
-  return null;
+    // Verify the token. Returns payload if the token is valid, otherwise throws an error
+    const payload = jwt.verify(token, process.env.TOKEN_SECRET);
+
+    // Add payload to the request object as req.payload for use in next middleware or route
+    req.payload = payload;
+
+    // Call next() to pass the request to the next middleware function or route
+    next();
+
+
+  } catch (error) {
+    // We catch the error here and return a 401 status code and an error message
+    // The middleware throws an error if unable to validate the token. It throws an error if:
+    // 1. There is no token
+    // 2. Token is invalid
+    // 3. There is no headers or authorization in req (no token)
+    console.log(error);
+    res.status(401).json("token not provided or not valid");
+  }
 }
+
+
 
 // Export the middleware so that we can use it to create protected routes
 module.exports = {

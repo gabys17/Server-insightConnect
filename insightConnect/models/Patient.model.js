@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 // CREATE A SCHEMA
-const patientsSchema = new Schema({
+const patientSchema = new Schema({
   id: { type: String, required: true, unique: true },
   full_name: { type: String, required: true },
   date_of_birth: { type: Date, required: true, default: Date.now },
@@ -22,21 +22,23 @@ const patientsSchema = new Schema({
       properties: {
         date: {
           type: Date,
+          required: true
         },
         consultation_info: {
           type: String,
+          required: true
         },
         treatments_recommendations: {
           type: String,
+          required: true
         },
       },
-      required: [date, consultation_info, treatments_recommendations],
     },
   },
 });
 
 // CREATE A MODEL
-const Patients = mongoose.model("Patients", patientsSchema);
+const Patient = mongoose.model("Patient", patientSchema);
 
 // EXPORT THE MODEL
-module.exports = Patients;
+module.exports = Patient;
