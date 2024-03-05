@@ -30,14 +30,15 @@ router.get("/patients/:id", async (req, res) => {
 
 /* Create */
 router.post("/patients", async (req, res) => {
-    const {full_name, date_of_birth, age, insurance_number, nationa_id_number, allergies, pathology_history, medication_adherence, consultation, treatments_recommendations, possible_diagnose, past_consultations} = req.body;
+    const {full_name, date_of_birth, age, insurance_number, national_id_number, allergies, pathology_history, medication_adherence, consultation, treatments_recommendations, possible_diagnose, past_consultations} = req.body;
 
     try{
-    const newPatient = await Patient.create({full_name, date_of_birth, age, insurance_number, nationa_id_number, allergies, pathology_history, medication_adherence, consultation, treatments_recommendations, possible_diagnose, past_consultations});
+    const newPatient = await Patient.create({full_name, date_of_birth, age, insurance_number, national_id_number, allergies, pathology_history, medication_adherence, consultation, treatments_recommendations, possible_diagnose, past_consultations});
 
     res.status(200).json(newPatient);
     }
     catch (error) {
+        console.log(error);
         res.status(500).json({message: "Error while creating a new Patient"});
     }
 })

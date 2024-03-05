@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 
 // CREATE A SCHEMA
 const patientSchema = new Schema({
-  id: { type: String, required: true, unique: true },
   full_name: { type: String, required: true },
   date_of_birth: { type: Date, required: true, default: Date.now },
   age: { type: Number },
@@ -21,16 +20,13 @@ const patientSchema = new Schema({
       type: Object,
       properties: {
         date: {
-          type: Date,
-          required: true
+          type: Date
         },
         consultation_info: {
-          type: String,
-          required: true
+          type: String
         },
         treatments_recommendations: {
-          type: String,
-          required: true
+          type: String
         },
       },
     },

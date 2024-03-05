@@ -41,7 +41,7 @@ app.use("/api", indexRoutes);
 const authRoutes = require("./routes/auth.routes");
 app.use("/auth", authRoutes);
 
-const patientsRoutes = require('./routes/patients.routes.jsx');
+const patientsRoutes = require('./routes/patients.routes');
   app.use('/patients', isAuthenticated, patientsRoutes);
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
