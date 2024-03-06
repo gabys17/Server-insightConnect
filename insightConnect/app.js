@@ -44,6 +44,12 @@ app.use("/auth", authRoutes);
 const patientsRoutes = require('./routes/patients.routes');
   app.use('/patients', isAuthenticated, patientsRoutes);
 
+  const agendaRoutes = require('./routes/agenda.routes');
+  app.use('/agenda', isAuthenticated, agendaRoutes);
+
+  const userRoutes = require('./routes/user.routes');
+  app.use('/users', isAuthenticated, userRoutes);
+
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
 

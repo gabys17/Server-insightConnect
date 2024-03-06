@@ -1,7 +1,18 @@
-const User = require('../model/User.model');
+const User = require('../models/User.model');
 const router = require('express').Router();
 const { isAuthenticated } = require('../middleware/jwt.middleware');
 
+
+router.get("/", async (req, res)=>{
+  try{
+      const allUser = await User.find()
+      res.status(200).json(allUser);
+  }
+  catch(error){
+      console.log(error);
+      res.status(500).json({message: "Error while creating the User list"});
+  }
+}); 
 
 // GET /api/users/:id - Retrieves a specific user by id
  router.get('/users/:id', isAuthenticated, (req, res, next) => {
@@ -26,5 +37,38 @@ const { isAuthenticated } = require('../middleware/jwt.middleware');
       });
   });
 
+/* Update */
+router.put("/users/:id", async (req, res) => {
+  try {
+    /* Destructure the id via router params */
+    const { id } = req.params;
+    const {email, password, name, role} = req.body
+
+      if(!email || !password || !name || !role){
+          return res.status(400).json({message: "Please fill all mandatory fields!"})
+        }
+    /* Find the user via the id and send it back to the client */
+    const updateUser = await User.findByIdAndUpdate(id, {
+      email, password, name, role
+    }, { new: true });
+    res.status(200).json(updateUser);
+  } catch (error) {
+      res.status(500).json({message: "Error while creating the User"});
+  }
+})
+
+
+/* Delete */
+router.delete("/users/:id", async (req, res) => {
+  try {
+    /* Destructure the id via route params */
+    const { id } = req.params;
+    /* Find the user via the id and send it back to the client */
+    await User.findByIdAndDelete(id);
+    res.status(200).json("User was deleted");
+  } catch (error) {
+      res.status(500).json({message: "Error while deleting the User"});
+  }
+})
 
 module.exports = router;
