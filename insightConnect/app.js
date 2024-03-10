@@ -23,11 +23,8 @@ const app = express();
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app);
 
-  app.use(
-    cors({
-      origin: ['http://localhost:5173', 'http://localhost:3000'], 
-    })
-  );
+//coors cong«iguration is inside index.js/config
+
   app.use(express.json());
   app.use(morgan("dev"));
   app.use(express.static("public"));
