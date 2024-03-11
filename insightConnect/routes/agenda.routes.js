@@ -14,7 +14,7 @@ router.get("/", async (req, res)=>{
 }); 
 
 /* Get by id */
-router.get("/agenda/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
     try {
         // destructure the id via route params
     const {id} = req.params;
@@ -29,7 +29,7 @@ router.get("/agenda/:id", async (req, res) => {
 
 
 /* Create */
-router.post("/agenda", async (req, res) => {
+router.post("/", async (req, res) => {
     const {title, description, participants, when, end_time, object, start_time, full_day} = req.body;
 
     try{
@@ -44,7 +44,7 @@ router.post("/agenda", async (req, res) => {
 })
 
 /* Update */
-router.put("/agenda/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
     try {
       /* Destructure the id via router params */
       const { id } = req.params;
@@ -65,7 +65,7 @@ router.put("/agenda/:id", async (req, res) => {
 
 
   /* Delete */
-router.delete("/agenda/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
     try {
       /* Destructure the id via route params */
       const { id } = req.params;
