@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 // CREATE A SCHEMA
 const patientSchema = new Schema({
   full_name: { type: String, required: true },
-  date_of_birth: { type: Date, required: true, default: Date.now },
+  date_of_birth: { type: String, required: true, default: Date.now },
   age: { type: Number },
   insurance_number: { type: Number, required: true },
   national_id_number: { type: String, required: true },
