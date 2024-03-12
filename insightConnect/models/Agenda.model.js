@@ -7,24 +7,9 @@ const agendaSchema = new Schema({
   description: { type: String },
   owner: { type: Schema.Types.ObjectId, ref: "userSchema", required: [true, "Owner is required."] },
   participants: [{ type: Schema.Types.ObjectId, ref: "patientSchema" }],
-  when: {
-    type: Array,
+  end_time: { type: Date, default: Date.now },
+  start_time: { type: Date, default: Date.now }
 
-    properties: {
-      end_time: {
-        type: Date
-      },
-      object: {
-        type: String
-      },
-      start_time: {
-        type: Date
-      },
-      full_day: {
-        type: Date
-      },
-    },
-  },
 });
 
 // CREATE A MODEL
