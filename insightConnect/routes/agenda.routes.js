@@ -30,10 +30,10 @@ router.get("/:id", async (req, res) => {
 
 /* Create */
 router.post("/", async (req, res) => {
-    const {title, description, participants, when, end_time, object, start_time, full_day} = req.body;
+    const {title, description, participants, end_time, start_time} = req.body;
 
     try{
-    const newAgenda = await Agenda.create({title, description, participants, when, end_time, object, start_time, full_day});
+    const newAgenda = await Agenda.create({title, description, participants, end_time, start_time});
 
     res.status(200).json(newAgenda);
     }
@@ -48,14 +48,14 @@ router.put("/:id", async (req, res) => {
     try {
       /* Destructure the id via router params */
       const { id } = req.params;
-      const {title, description, participants, when, end_time, object, start_time, full_day} = req.body
+      const {title, description, participants, end_time, start_time} = req.body
 
         if(!title){
             return res.status(400).json({message: "Please fill all mandatory fields!"})
           }
       /* Find the user via the id and send it back to the client */
       const updateAgenda = await Agenda.findByIdAndUpdate(id, {
-        title, description, participants, when, end_time, object, start_time, full_day
+        title, description, participants, end_time, start_time
       }, { new: true });
       res.status(200).json(updateAgenda);
     } catch (error) {
