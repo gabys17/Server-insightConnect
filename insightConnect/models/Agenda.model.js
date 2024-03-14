@@ -7,8 +7,8 @@ const agendaSchema = new Schema({
   description: { type: String },
   owner: { type: Schema.Types.ObjectId, ref: "userSchema", required: [true, "Owner is required."] },
   participants: [{ type: Schema.Types.ObjectId, ref: "patientSchema" }],
-  end_time: { type: Date, default: Date.now },
-  start_time: { type: Date, default: Date.now }
+  end_time: { type: Date },
+  start_time: { type: Date }
 
 });
 
