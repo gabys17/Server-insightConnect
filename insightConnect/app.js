@@ -1,7 +1,6 @@
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const PORT = 5005;
-const cors = require("cors");
 const mongoose = require("mongoose");
 const { isAuthenticated } = require("./middleware/jwt.middleware");
 const jwt = require('express-jwt');
@@ -39,13 +38,13 @@ const authRoutes = require("./routes/auth.routes");
 app.use("/auth", authRoutes);
 
 const patientsRoutes = require('./routes/patients.routes');
-  app.use('/patients', isAuthenticated, patientsRoutes);
+  app.use('/patient', isAuthenticated, patientsRoutes);
 
   const agendaRoutes = require('./routes/agenda.routes');
   app.use('/agenda', isAuthenticated, agendaRoutes);
 
   const userRoutes = require('./routes/user.routes');
-  app.use('/users', isAuthenticated, userRoutes);
+  app.use('/user', isAuthenticated, userRoutes);
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);

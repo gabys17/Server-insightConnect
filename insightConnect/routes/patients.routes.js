@@ -14,7 +14,7 @@ router.get("/", async (req, res)=>{
 }); 
 
 /* Get by id */
-router.get("/patients/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
     try {
         // destructure the id via route params
     const {id} = req.params;
@@ -29,7 +29,7 @@ router.get("/patients/:id", async (req, res) => {
 
 
 /* Create */
-router.post("/patients", async (req, res) => {
+router.post("/", async (req, res) => {
     const {full_name, date_of_birth, age, insurance_number, national_id_number, allergies, pathology_history, medication_adherence, consultation, treatments_recommendations, possible_diagnose, past_consultations} = req.body;
 
     try{
@@ -44,7 +44,7 @@ router.post("/patients", async (req, res) => {
 })
 
 /* Update */
-router.put("/patients/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
     try {
       /* Destructure the id via router params */
       const { id } = req.params;
@@ -60,13 +60,13 @@ router.put("/patients/:id", async (req, res) => {
       }, { new: true });
       res.status(200).json(updatePatient);
     } catch (error) {
-        res.status(500).json({message: "Error while creating the Cohort"});
+        res.status(500).json({message: "Error while creating the Patient"});
     }
   })
 
 
   /* Delete */
-router.delete("/patients/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
     try {
       /* Destructure the id via route params */
       const { id } = req.params;
