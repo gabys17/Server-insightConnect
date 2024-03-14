@@ -25,6 +25,17 @@ router.get("/doctors", async (req, res) => {
   }
 });
 
+// get all doctors
+router.get("/doctors", async (req, res) => {
+  try {
+    const allDoctors = await User.find({ role: "doctor" });
+    res.status(200).json(allDoctors);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Error while creating the Doctor list" });
+  }
+});
+
 // GET /api/users/:id - Retrieves a specific user by id
 router.get('/:id', isAuthenticated, (req, res, next) => {
   // Get the user id from the request parameters
